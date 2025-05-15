@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style.css">
+    <link rel="icon" href="./favicon.ico">
+    <title>Tech Calc</title>
+</head>
+<body>
+    <a class="home-btn" href="../../index.html"><img src="https://cdn3.iconfinder.com/data/icons/ellegant/64x64/9.png"/></a>
+    <div class="alert">
+        <div>
+            <h1 class="alertMsg">hello</h1>
+            <button class="btn-ok" onclick="closeAlert()">OK</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="Calculator">
+            <input type="text" placeholder="0" id="output-screen">
+            <button onclick="cl()">Cl</button>
+            <button onclick="del()">Del</button>
+            <button onclick="display('%')">%</button>
+            <button onclick="display('/')">/</button>
+            <button onclick="display('7')">7</button>
+            <button onclick="display('8')">8</button>
+            <button onclick="display('9')">9</button>
+            <button onclick="display('*')">*</button>
+            <button onclick="display('4')">4</button>
+            <button onclick="display('5')">5</button>
+            <button onclick="display('6')">6</button>
+            <button onclick="display('-')">-</button>
+            <button onclick="display('1')">1</button>
+            <button onclick="display('2')">2</button>
+            <button onclick="display('3')">3</button>
+            <button onclick="display('+')">+</button>
+            <button onclick="display('.')">.</button>
+            <button onclick="display('0')">0</button>
+            <button onclick="calculate()" class="equal">=</button>
+        </div>
+    </div>
+
+    <!-- gemetric calculator -->
+
+    <div class="caintainer2">
+    
+            <div class="calculator-section">
+                <h2>Circle</h2>
+                <label >Radius:</label>
+                <input type="number" id="circleRadius" placeholder="Enter Radius">
+                <button class="btn" onclick="calculateCircle()">Calculate</button>
+                <p>Area: <span id="circleArea"></span></p>
+                <p>Perimeter: <span id="circlePerimeter"></span></p>
+            </div>
+    
+            <div class="calculator-section">
+                <h2>Square</h2>
+                <label for="squareSide">Side:</label>
+                <input type="number" id="squareSide" placeholder="Enter Side">
+                <button class="btn" onclick="calculateSquare()">Calculate</button>
+                <p>Area: <span id="squareArea"></span></p>
+                <p>Perimeter: <span id="squarePerimeter"></span></p>
+            </div>
+
+            <div class="calculator-section">
+                <h2>Rectangle</h2>
+                <label for="rectangleLength">Length:</label>
+                <input type="number" id="rectangleLength" placeholder="Enter Length">
+                <label for="rectangleWidth">Width:</label>
+                <input type="number" id="rectangleWidth" placeholder="Enter Width">
+                <button class="btn" onclick="calculateRectangle()">Calculate</button>
+                <p>Area: <span id="rectangleArea"></span></p>
+                <p>Perimeter: <span id="rectanglePerimeter"></span></p>
+            </div>
+    
+            <div class="calculator-section">
+                <h2>Triangle</h2>
+                <label for="triangleBase">Base:</label>
+                <input type="number" id="triangleBase" placeholder="Enter Base">
+                <label for="triangleHeight">Height:</label>
+                <input type="number" id="triangleHeight" placeholder="Enter Height">
+                <button class="btn" onclick="calculateTriangle()">Calculate</button>
+                <p>Area: <span id="triangleArea"></span></p>
+                <p class="side">Side: <span id="triangleSide">3</span></p>
+            </div>
+            <!-- <div class="calculator-sect"></div> -->
+            <!-- <div class="calculator-sect"></div> -->
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>

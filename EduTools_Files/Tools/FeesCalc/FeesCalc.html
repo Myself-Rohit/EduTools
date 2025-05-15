@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>College Fee Calculator</title>
+    <link rel="icon" href="./favicon.ico" />
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <a class="home-btn" href="../../index.html"
+      ><img src="https://cdn3.iconfinder.com/data/icons/ellegant/64x64/9.png"
+    /></a>
+    <div class="container">
+      <h2>College Fee Calculator</h2>
+      <label for="name">Student Name:</label>
+      <input type="text" id="name" required />
+
+      <label for="admission_number">Admission Number:</label>
+      <input type="text" id="admission_number" required />
+
+      <label for="fee_type">Select Fee Type:</label>
+      <select id="fee_type">
+        <option value="tuition">Tuition Fee</option>
+        <option value="exam">Exam Fee</option>
+        <option value="library">Library Fee</option>
+      </select>
+
+      <label for="fee_amount">Fee Amount Paid:</label>
+      <input type="number" id="fee_amount" required />
+
+      <button onclick="calculateFees()">Calculate</button>
+
+      <div id="result"></div>
+    </div>
+
+    <script src="apk.js"></script>
+  </body>
+</html>

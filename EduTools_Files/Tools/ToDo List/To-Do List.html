@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>To-Do List</title>
+    <link rel="icon" href="./favicon.ico">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <a class="home-btn" href="../../index.html"><img src="https://cdn3.iconfinder.com/data/icons/ellegant/64x64/9.png"/></a>
+    <div id="alert">
+        <div class="alert-content">
+            <h1 id="alert-text"></h1>
+            <button onclick="hideAlert()">O K</button>
+        </div>
+    </div>
+    <div class="container">
+        <div class="title">
+        <h1>To-Do List</h1>
+        <div class="input-container">
+            <input type="text" id="todo-input" placeholder="Add a new task...">
+            <button id="add-btn">Add</button>
+            <button id="update-btn" style="display: none;">Update</button>
+        </div>
+    </div>
+        <ul id="todo-list"></ul>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
