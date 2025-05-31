@@ -1,100 +1,117 @@
-document.getElementById('add-btn').addEventListener('click', addTodo);
-document.getElementById('update-btn').addEventListener('click', updateTodo);
-document.getElementById('todo-input').addEventListener('keypress', function(e) {
-    if (e.key === 'Enter') {
-        if (document.getElementById('update-btn').style.display === 'none') {
-            addTodo();
-        } else {
-            updateTodo();
-        }
+document.getElementById("add-btn").addEventListener("click", addTodo);
+document.getElementById("update-btn").addEventListener("click", updateTodo);
+document
+  .getElementById("todo-input")
+  .addEventListener("keypress", function (e) {
+    if (e.key === "Enter") {
+      if (document.getElementById("update-btn").style.display === "none") {
+        addTodo();
+      } else {
+        updateTodo();
+      }
     }
-});
+  });
 
 let currentEditItem = null;
+let todos = JSON.parse(localStorage.getItem("todos")) || [];
 
-function addTodo() {
-    const todoInput = document.getElementById('todo-input');
-    const todoText = todoInput.value.trim();
+function renderTodos() {
+  const todoList = document.getElementById("todo-list");
+  todoList.innerHTML = "";
 
-    if (todoText === '') {
-        showalert('Please enter a task.');
-        return;
-    }
+  todos.forEach((todo, index) => {
+    const li = document.createElement("li");
 
-    const todoList = document.getElementById('todo-list');
-    const li = document.createElement('li');
-    
-    const span = document.createElement('span');
-    span.textContent = todoText;
-
-    const strikeBtn = document.createElement('input');
-    strikeBtn.setAttribute("type","checkbox")
-    strikeBtn.textContent = 'complete';
-    strikeBtn.className = 'strike-btn';
-    strikeBtn.addEventListener('click', function() {
-        strikeTodoItem(li);
+    const strikeBtn = document.createElement("input");
+    strikeBtn.setAttribute("type", "checkbox");
+    strikeBtn.className = "strike-btn";
+    strikeBtn.checked = todo.completed;
+    strikeBtn.addEventListener("click", function () {
+      todos[index].completed = strikeBtn.checked;
+      saveTodos();
+      renderTodos();
     });
 
-    const editBtn = document.createElement('button');
-    editBtn.textContent = 'Edit';
-    editBtn.className = 'edit-btn';
-    editBtn.addEventListener('click', function() {
-        editTodoItem(li);
+    const span = document.createElement("span");
+    span.textContent = todo.text;
+    span.style.textDecoration = todo.completed ? "line-through" : "none";
+    span.style.color = todo.completed ? "green" : "white";
+
+    const editBtn = document.createElement("button");
+    editBtn.textContent = "Edit";
+    editBtn.className = "edit-btn";
+    editBtn.addEventListener("click", function () {
+      editTodoItem(index);
     });
 
-    const deleteBtn = document.createElement('button');
-    deleteBtn.textContent = 'Delete';
-    deleteBtn.className = 'delete-btn';
-    deleteBtn.addEventListener('click', function() {
-        todoList.removeChild(li);
+    const deleteBtn = document.createElement("button");
+    deleteBtn.textContent = "Delete";
+    deleteBtn.className = "delete-btn";
+    deleteBtn.addEventListener("click", function () {
+      todos.splice(index, 1);
+      saveTodos();
+      renderTodos();
     });
 
     li.appendChild(strikeBtn);
     li.appendChild(span);
     li.appendChild(editBtn);
     li.appendChild(deleteBtn);
+
     todoList.appendChild(li);
-
-    todoInput.value = '';
-    todoInput.focus();
+  });
 }
 
+function addTodo() {
+  const todoInput = document.getElementById("todo-input");
+  const todoText = todoInput.value.trim();
 
-function strikeTodoItem(li){
-    currentEditItem = li;
-    if(!li.childNodes[0].checked){
-        li.childNodes[1].style.textDecoration = "none";
-        li.childNodes[1].style.color= "white";
-    }else{
-        li.childNodes[1].style.textDecoration = "line-through";
-        li.childNodes[1].style.color= "green";
-    }
+  if (todoText === "") {
+    showalert("Please enter a task.");
+    return;
+  }
+
+  todos.push({ text: todoText, completed: false });
+  saveTodos();
+  renderTodos();
+
+  todoInput.value = "";
+  todoInput.focus();
 }
 
-function editTodoItem(li) {
-    currentEditItem = li;
-    document.getElementById('todo-input').value = li.childNodes[1].innerText;
-    document.getElementById('add-btn').style.display = 'none';
-    document.getElementById('update-btn').style.display = 'block';
+function editTodoItem(index) {
+  currentEditItem = index;
+  document.getElementById("todo-input").value = todos[index].text;
+  document.getElementById("add-btn").style.display = "none";
+  document.getElementById("update-btn").style.display = "block";
 }
 
 function updateTodo() {
-    if (currentEditItem) {
-        const todoInput = document.getElementById('todo-input');
-        currentEditItem.childNodes[1].innerText = todoInput.value;
-        todoInput.value = '';
-        document.getElementById('add-btn').style.display = 'block';
-        document.getElementById('update-btn').style.display = 'none';
-        currentEditItem = null;
-    }
+  if (currentEditItem !== null) {
+    const todoInput = document.getElementById("todo-input");
+    todos[currentEditItem].text = todoInput.value.trim();
+    saveTodos();
+    renderTodos();
+
+    todoInput.value = "";
+    document.getElementById("add-btn").style.display = "block";
+    document.getElementById("update-btn").style.display = "none";
+    currentEditItem = null;
+  }
 }
 
-function showalert(msg){
-    document.getElementById("alert-text").innerText = msg
-    document.getElementById("alert").style.top ="0%";
+function saveTodos() {
+  localStorage.setItem("todos", JSON.stringify(todos));
 }
 
-function hideAlert(){
-    document.getElementById("alert").style.top ="-100%";
-    document.getElementById("alert-text").innerText = ""
+function showalert(msg) {
+  document.getElementById("alert-text").innerText = msg;
+  document.getElementById("alert").style.top = "0%";
 }
+
+function hideAlert() {
+  document.getElementById("alert").style.top = "-100%";
+  document.getElementById("alert-text").innerText = "";
+}
+
+renderTodos();
